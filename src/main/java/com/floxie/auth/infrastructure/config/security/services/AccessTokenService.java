@@ -3,7 +3,7 @@ package com.floxie.auth.infrastructure.config.security.services;
 import com.floxie.auth.features.user.entity.User;
 import com.floxie.auth.infrastructure.config.security.dto.AuthenticationResponse;
 
-public interface JwtService {
+public interface AccessTokenService {
 
   AuthenticationResponse generateToken(User user);
 

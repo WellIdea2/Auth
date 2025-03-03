@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import com.floxie.auth.features.user.services.UserService;
 import com.floxie.auth.infrastructure.config.security.dto.AuthenticationRequest;
 import com.floxie.auth.infrastructure.config.security.dto.AuthenticationResponse;
-import com.floxie.auth.infrastructure.config.security.services.JwtService;
+import com.floxie.auth.infrastructure.config.security.services.AccessTokenService;
 import org.commons.feature.user.paths.AuthenticationControllerPaths;
 import org.commons.exceptions.throwable.BadRequestException;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class AuthenticationController {
 
   private final UserService userService;
   private final PasswordEncoder passwordEncoder;
-  private final JwtService jwtService;
+  private final AccessTokenService accessTokenService;
 
   @PostMapping(AuthenticationControllerPaths.LOGIN)
   public ResponseEntity<AuthenticationResponse> create(
@@ -35,7 +35,7 @@ public class AuthenticationController {
     if (passwordEncoder.matches(authenticationRequest.password(), user.getPassword())) {
       return ResponseEntity
           .ok()
-          .body(jwtService.generateToken(user));
+          .body(accessTokenService.generateToken(user));
     }
     throw new BadRequestException(INVALID_USERNAME_OR_PASSWORD);
   }

@@ -1,17 +1,15 @@
 package com.floxie.auth.infrastructure.config.security.evaluator;
 
-import java.util.UUID;
-import lombok.RequiredArgsConstructor;
-import com.floxie.auth.infrastructure.config.security.services.UserDetailsServiceImpl;
+import com.floxie.auth.infrastructure.config.security.utils.SecurityUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
-@RequiredArgsConstructor
 public class UserEvaluator {
-  private final UserDetailsServiceImpl userDetailsService;
 
   public boolean isOwner(UUID userId) {
-    var user = userDetailsService.extractUserPrincipal();
+    var user = SecurityUtils.extractLoggedUser();
     return user.getId().equals(userId);
   }
 }

@@ -1,24 +1,21 @@
 package com.floxie.auth.infrastructure.config.security.services;
 
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.UnsupportedJwtException;
-import io.jsonwebtoken.security.SignatureException;
-import java.util.Date;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import com.floxie.auth.features.user.entity.User;
 import com.floxie.auth.infrastructure.config.security.config.JwtConfig;
 import com.floxie.auth.infrastructure.config.security.dto.AccessTokenView;
 import com.floxie.auth.infrastructure.config.security.dto.AuthenticationResponse;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.SignatureException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class JwtServiceImpl implements JwtService {
+public class AccessTokenServiceImpl implements AccessTokenService {
 
   private final JwtConfig jwtConfig;
 
@@ -67,11 +64,6 @@ public class JwtServiceImpl implements JwtService {
         .claim("id", user.getId())
         .claim("username", user.getUsername())
         .claim("email", user.getEmail())
-        .claim("kilograms", user.getKilograms())
-        .claim("height", user.getHeight() )
-        .claim("workoutState", user.getWorkoutState())
-        .claim("gender", user.getGender())
-        .claim("age", user.getAge())
         .claim("role", user.getRole())
         .setIssuedAt(currentDate)
         .setExpiration(expirationDate)

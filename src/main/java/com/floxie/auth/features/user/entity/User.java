@@ -12,9 +12,7 @@ import java.util.UUID;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.commons.feature.user.enums.Gender;
 import org.commons.feature.user.enums.UserRole;
-import org.commons.feature.user.enums.WorkoutState;
 
 @Setter
 @Getter
@@ -36,18 +34,6 @@ public class User {
 
   @Column(nullable = false)
   private String password;
-
-  private Double kilograms;
-
-  private Double height;
-
-  private Integer age;
-
-  @Enumerated(EnumType.STRING)
-  private WorkoutState workoutState;
-
-  @Enumerated(EnumType.STRING)
-  private Gender gender;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)

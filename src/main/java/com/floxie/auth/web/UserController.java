@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
   private final UserService service;
-  private final RabbitMqProducer userRabbitmqService;
 
   @GetMapping(UserControllerPaths.GET_ALL)
   @PreAuthorize("hasRole('ADMIN')")
@@ -47,8 +46,8 @@ public class UserController {
   @PostMapping(UserControllerPaths.CREATE)
   public ResponseEntity<UserView> create(
       @RequestBody @Valid UserCreateRequest registerUserDto) {
-    UserView createdUser = userRabbitmqService.create(registerUserDto);
-    return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body(service.create(registerUserDto));
   }
 
   @PatchMapping(UserControllerPaths.EDIT)
@@ -61,7 +60,7 @@ public class UserController {
   @DeleteMapping(UserControllerPaths.DELETE)
   @PreAuthorize("@userEvaluator.isOwner(#id) || hasRole('ADMIN')")
   public ResponseEntity<Void> delete(@PathVariable UUID id) {
-    userRabbitmqService.delete(id);
+    service.delete(id);
     return ResponseEntity.noContent().build();
   }
 

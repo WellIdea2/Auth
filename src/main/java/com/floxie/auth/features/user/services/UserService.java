@@ -1,6 +1,8 @@
 package com.floxie.auth.features.user.services;
 
 import java.util.UUID;
+
+import com.floxie.auth.features.user.dto.UserCreateRequest;
 import com.floxie.auth.features.user.dto.UserFilter;
 import com.floxie.auth.features.user.entity.User;
 import com.floxie.auth.features.user.dto.UserEditRequest;
@@ -15,6 +17,10 @@ public interface UserService {
   UserView getById(UUID userId);
 
   UserView edit(UserEditRequest userDto, UUID userId);
+
+  UserView create(UserCreateRequest userDto);
+
+  void delete (UUID userId);
 
   User findByEmail(String email);
 

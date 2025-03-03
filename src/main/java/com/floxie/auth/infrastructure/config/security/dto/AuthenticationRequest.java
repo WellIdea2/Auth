@@ -1,7 +1,7 @@
 package com.floxie.auth.infrastructure.config.security.dto;
 
 import jakarta.validation.constraints.Email;
-import com.floxie.auth.infrastructure.annotations.ValidPassword;
+import com.floxie.auth.features.user.annotations.ValidPassword;
 
 public record AuthenticationRequest(
 

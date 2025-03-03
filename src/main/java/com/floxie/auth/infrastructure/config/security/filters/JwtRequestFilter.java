@@ -1,31 +1,31 @@
 package com.floxie.auth.infrastructure.config.security.filters;
 
+import com.floxie.auth.infrastructure.config.security.services.AccessTokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import lombok.RequiredArgsConstructor;
-import com.floxie.auth.infrastructure.config.security.services.JwtService;
-import org.commons.feature.shared.util.GsonWrapper;
+import org.commons.feature.shared.utils.GsonWrapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
+  private static final GsonWrapper GSON_WRAPPER = new GsonWrapper();
   private final UserDetailsService userDetailsService;
-  private final JwtService jwtUtil;
-  private final GsonWrapper gsonWrapper;
+  private final AccessTokenService jwtUtil;
 
   @Override
   protected void doFilterInternal(
@@ -56,7 +56,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authToken);
       }
 
-    } catch (UsernameNotFoundException e) {
+    } catch (Exception e) {
       handleUsernameNotFoundException(response, e);
       return;
     }
@@ -66,7 +66,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 
   private void handleUsernameNotFoundException(HttpServletResponse response,
-      UsernameNotFoundException e) throws IOException {
+                                               Exception e) throws IOException {
     ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN,
         e.getMessage());
     problemDetail.setTitle("User Not Found");
@@ -74,7 +74,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     response.setStatus(HttpStatus.FORBIDDEN.value());
     response.setContentType("application/json");
 
-    String json = gsonWrapper.toJson(problemDetail);
+    String json = GSON_WRAPPER.toJson(problemDetail);
 
     response.getWriter().write(json);
   }

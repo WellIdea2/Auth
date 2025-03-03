@@ -1,4 +1,4 @@
-package com.floxie.auth.infrastructure.annotations;
+package com.floxie.auth.features.user.annotations;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
