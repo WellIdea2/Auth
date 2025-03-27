@@ -21,8 +21,10 @@ public class UserSpecification implements Specification<User> {
   }
 
   @Override
-  public Predicate toPredicate(@NonNull Root<User> root, @NonNull CriteriaQuery<?> query,
-                               @NonNull CriteriaBuilder criteriaBuilder) {
+  public Predicate toPredicate(
+      @NonNull Root<User> root,
+      @NonNull CriteriaQuery<?> query,
+      @NonNull CriteriaBuilder criteriaBuilder) {
     List<Predicate> predicates = new ArrayList<>();
 
     if (filter.username() != null) {

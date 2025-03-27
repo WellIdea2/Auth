@@ -1,9 +1,9 @@
 package com.floxie.auth.infrastructure.config.security.dto;
 
+import com.floxie.auth.features.user.entity.User;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import com.floxie.auth.features.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

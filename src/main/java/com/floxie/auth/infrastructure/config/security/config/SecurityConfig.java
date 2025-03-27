@@ -28,15 +28,20 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http
-        .cors(AbstractHttpConfigurer::disable)
+    http.cors(AbstractHttpConfigurer::disable)
         .csrf(AbstractHttpConfigurer::disable)
-        .authorizeHttpRequests(authorizeRequests ->
-            authorizeRequests
-                .requestMatchers(HttpMethod.POST, UserControllerPaths.BASE + UserControllerPaths.CREATE).permitAll()
-                .requestMatchers(HttpMethod.POST, AuthenticationControllerPaths.BASE + AuthenticationControllerPaths.LOGIN).permitAll()
-                .anyRequest().authenticated()
-        )
+        .authorizeHttpRequests(
+            authorizeRequests ->
+                authorizeRequests
+                    .requestMatchers(
+                        HttpMethod.POST, UserControllerPaths.BASE + UserControllerPaths.CREATE)
+                    .permitAll()
+                    .requestMatchers(
+                        HttpMethod.POST,
+                        AuthenticationControllerPaths.BASE + AuthenticationControllerPaths.LOGIN)
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .exceptionHandling(Customizer.withDefaults())

@@ -17,17 +17,18 @@ public class ValidPasswordValidator implements ConstraintValidator<ValidPassword
   private static final PasswordValidator PASSWORD_VALIDATOR = createPasswordValidator();
 
   private static PasswordValidator createPasswordValidator() {
-    var specialCharacterData = new CharacterData() {
-      @Override
-      public String getErrorCode() {
-        return "INSUFFICIENT_SPECIAL";
-      }
+    var specialCharacterData =
+        new CharacterData() {
+          @Override
+          public String getErrorCode() {
+            return "INSUFFICIENT_SPECIAL";
+          }
 
-      @Override
-      public String getCharacters() {
-        return "!@#$%^&*()_+";
-      }
-    };
+          @Override
+          public String getCharacters() {
+            return "!@#$%^&*()_+";
+          }
+        };
 
     return new PasswordValidator(
         Arrays.asList(
@@ -35,9 +36,7 @@ public class ValidPasswordValidator implements ConstraintValidator<ValidPassword
             new CharacterRule(EnglishCharacterData.UpperCase, 1),
             new CharacterRule(EnglishCharacterData.Digit, 1),
             new CharacterRule(specialCharacterData, 1),
-            new WhitespaceRule()
-        )
-    );
+            new WhitespaceRule()));
   }
 
   @Override
@@ -54,10 +53,11 @@ public class ValidPasswordValidator implements ConstraintValidator<ValidPassword
 
     context.disableDefaultConstraintViolation();
 
-    PASSWORD_VALIDATOR.getMessages(result).forEach(message -> context
-        .buildConstraintViolationWithTemplate(message)
-        .addConstraintViolation()
-    );
+    PASSWORD_VALIDATOR
+        .getMessages(result)
+        .forEach(
+            message ->
+                context.buildConstraintViolationWithTemplate(message).addConstraintViolation());
 
     return false;
   }

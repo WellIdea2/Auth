@@ -44,16 +44,14 @@ public class UserController {
   }
 
   @PostMapping(UserControllerPaths.CREATE)
-  public ResponseEntity<UserView> create(
-      @RequestBody @Valid UserCreateRequest registerUserDto) {
-    return ResponseEntity.status(HttpStatus.CREATED)
-        .body(service.create(registerUserDto));
+  public ResponseEntity<UserView> create(@RequestBody @Valid UserCreateRequest registerUserDto) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(service.create(registerUserDto));
   }
 
   @PatchMapping(UserControllerPaths.EDIT)
   @PreAuthorize("@userEvaluator.isOwner(#id) || hasRole('ADMIN')")
-  public ResponseEntity<UserView> edit(@RequestBody @Valid UserEditRequest dto,
-      @PathVariable UUID id) {
+  public ResponseEntity<UserView> edit(
+      @RequestBody @Valid UserEditRequest dto, @PathVariable UUID id) {
     return ResponseEntity.status(HttpStatus.OK).body(service.edit(dto, id));
   }
 

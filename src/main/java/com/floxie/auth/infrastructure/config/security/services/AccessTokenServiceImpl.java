@@ -27,10 +27,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
   public Boolean isAccessTokenValid(String token) {
     try {
-      Jwts.parserBuilder()
-          .setSigningKey(jwtConfig.getSecretKey())
-          .build()
-          .parseClaimsJws(token);
+      Jwts.parserBuilder().setSigningKey(jwtConfig.getSecretKey()).build().parseClaimsJws(token);
       return true;
     } catch (ExpiredJwtException e) {
       log.error("JWT token is expired: {}", e.getMessage());
@@ -59,16 +56,17 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     var currentDate = new Date();
     var expirationDate = new Date(currentDate.getTime() + jwtConfig.getJwtDuration());
 
-    String token = Jwts.builder()
-        .setSubject(user.getEmail())
-        .claim("id", user.getId())
-        .claim("username", user.getUsername())
-        .claim("email", user.getEmail())
-        .claim("role", user.getRole())
-        .setIssuedAt(currentDate)
-        .setExpiration(expirationDate)
-        .signWith(jwtConfig.getSecretKey(), SignatureAlgorithm.HS256)
-        .compact();
+    String token =
+        Jwts.builder()
+            .setSubject(user.getEmail())
+            .claim("id", user.getId())
+            .claim("username", user.getUsername())
+            .claim("email", user.getEmail())
+            .claim("role", user.getRole())
+            .setIssuedAt(currentDate)
+            .setExpiration(expirationDate)
+            .signWith(jwtConfig.getSecretKey(), SignatureAlgorithm.HS256)
+            .compact();
 
     return new AccessTokenView(token);
   }

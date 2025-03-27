@@ -31,8 +31,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
   protected void doFilterInternal(
       @NonNull HttpServletRequest request,
       @NonNull HttpServletResponse response,
-      @NonNull FilterChain chain
-  ) throws IOException, ServletException {
+      @NonNull FilterChain chain)
+      throws IOException, ServletException {
     var authorizationHeader = request.getHeader("Authorization");
 
     if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
@@ -49,9 +49,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         var userDetails = userDetailsService.loadUserByUsername(email);
 
-        var authToken = new UsernamePasswordAuthenticationToken(
-            userDetails, null, userDetails.getAuthorities()
-        );
+        var authToken =
+            new UsernamePasswordAuthenticationToken(
+                userDetails, null, userDetails.getAuthorities());
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authToken);
       }
@@ -64,11 +64,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     chain.doFilter(request, response);
   }
 
-
-  private void handleUsernameNotFoundException(HttpServletResponse response,
-                                               Exception e) throws IOException {
-    ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN,
-        e.getMessage());
+  private void handleUsernameNotFoundException(HttpServletResponse response, Exception e)
+      throws IOException {
+    ProblemDetail problemDetail =
+        ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, e.getMessage());
     problemDetail.setTitle("User Not Found");
 
     response.setStatus(HttpStatus.FORBIDDEN.value());

@@ -1,9 +1,8 @@
 package com.floxie.auth.infrastructure.config.security.evaluator;
 
 import com.floxie.auth.infrastructure.config.security.utils.SecurityUtils;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
+import org.springframework.stereotype.Component;
 
 @Component
 public class UserEvaluator {

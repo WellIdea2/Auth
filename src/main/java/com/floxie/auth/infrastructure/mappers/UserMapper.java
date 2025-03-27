@@ -13,8 +13,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 @Mapper(
     componentModel = "spring",
     nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
-)
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 @DecoratedWith(UserMapperDecoder.class)
 public interface UserMapper {
 

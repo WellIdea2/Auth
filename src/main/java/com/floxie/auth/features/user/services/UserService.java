@@ -1,11 +1,10 @@
 package com.floxie.auth.features.user.services;
 
-import java.util.UUID;
-
 import com.floxie.auth.features.user.dto.UserCreateRequest;
+import com.floxie.auth.features.user.dto.UserEditRequest;
 import com.floxie.auth.features.user.dto.UserFilter;
 import com.floxie.auth.features.user.entity.User;
-import com.floxie.auth.features.user.dto.UserEditRequest;
+import java.util.UUID;
 import org.commons.feature.user.dto.UserView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

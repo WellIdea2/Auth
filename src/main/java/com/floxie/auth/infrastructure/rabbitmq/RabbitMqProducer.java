@@ -1,11 +1,10 @@
 package com.floxie.auth.infrastructure.rabbitmq;
 
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.commons.rabbitmq.RabbitMqUserQueues;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

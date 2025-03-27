@@ -6,8 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public final class SecurityUtils {
 
-  private SecurityUtils() {
-  }
+  private SecurityUtils() {}
 
   public static CustomUserDetails extractLoggedUser() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

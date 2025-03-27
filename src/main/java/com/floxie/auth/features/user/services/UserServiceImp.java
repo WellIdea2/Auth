@@ -1,5 +1,8 @@
 package com.floxie.auth.features.user.services;
 
+import static com.floxie.auth.infrastructure.exceptions.ExceptionMessages.USER_NOT_FOUND;
+import static com.floxie.auth.infrastructure.exceptions.ExceptionMessages.USER_NOT_FOUND_EMAIL;
+
 import com.floxie.auth.features.user.dto.UserCreateRequest;
 import com.floxie.auth.features.user.dto.UserEditRequest;
 import com.floxie.auth.features.user.dto.UserFilter;
@@ -9,17 +12,13 @@ import com.floxie.auth.features.user.repository.UserSpecification;
 import com.floxie.auth.infrastructure.config.security.utils.SecurityUtils;
 import com.floxie.auth.infrastructure.mappers.UserMapper;
 import com.floxie.auth.infrastructure.rabbitmq.RabbitMqProducer;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.commons.exceptions.throwable.NotFoundException;
 import org.commons.feature.user.dto.UserView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
-
-import static com.floxie.auth.infrastructure.exceptions.ExceptionMessages.USER_NOT_FOUND;
-import static com.floxie.auth.infrastructure.exceptions.ExceptionMessages.USER_NOT_FOUND_EMAIL;
 
 @Service
 @RequiredArgsConstructor

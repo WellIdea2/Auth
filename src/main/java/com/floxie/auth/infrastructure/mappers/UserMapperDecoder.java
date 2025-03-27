@@ -1,12 +1,11 @@
 package com.floxie.auth.infrastructure.mappers;
 
 import com.floxie.auth.features.user.dto.UserCreateRequest;
-import com.floxie.auth.features.user.entity.User;
 import com.floxie.auth.features.user.dto.UserEditRequest;
+import com.floxie.auth.features.user.entity.User;
 import org.commons.feature.user.dto.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 

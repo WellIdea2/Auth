@@ -1,9 +1,9 @@
 package com.floxie.auth.features.user.annotations;
 
+import com.floxie.auth.features.user.repository.UserRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
-import com.floxie.auth.features.user.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +14,6 @@ public class NotUsedEmailValidator implements ConstraintValidator<NotUsedEmailCo
 
   @Override
   public boolean isValid(String email, ConstraintValidatorContext context) {
-    return userRepository.findByEmail(email)
-        .isEmpty();
+    return userRepository.findByEmail(email).isEmpty();
   }
 }
